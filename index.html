@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sorry for the Convenience: The Importance of Progressive Enhancement by Brendon Walsh</title>
+    <meta name="title" content="Sorry for the Convenience: The Importance of Progressive Enhancement by Brendon Walsh">
+    <meta name="description" content="&quot;Sorry for the Convenience&quot; is a lightning talk that was presented October 29, 2022 by Brendon Walsh at Dutch Clojure Days.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://metatags.io/">
+    <meta property="og:title" content="Sorry for the Convenience: The Importance of Progressive Enhancement by Brendon Walsh">
+    <meta property="og:description" content="&quot;Sorry for the Convenience&quot; is a lightning talk that was presented October 29, 2022 by Brendon Walsh at Dutch Clojure Days.">
+    <meta property="og:image" content="media/metatag.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://metatags.io/">
+    <meta property="twitter:title" content="Sorry for the Convenience: The Importance of Progressive Enhancement by Brendon Walsh">
+    <meta property="twitter:description" content="&quot;Sorry for the Convenience&quot; is a lightning talk that was presented October 29, 2022 by Brendon Walsh at Dutch Clojure Days.">
+    <meta property="twitter:image" content="media/metatag.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="node_modules/@shower/material/styles/styles.css">
+    <style>
+        h3 {
+            margin-top: 0;
+            text-align: center;
+            color: var(--color-primary);
+            font-weight: 600;
+            font-size: 2.5rem;
+        }
+
+        h3.shout + h4 {
+            position: relative;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 35%;
+            font-size: 2rem;
+            font-weight: 400;
+        }
+
+        .table_of_contents {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 60%;
+        }
+
+        .table_of_contents li {
+            min-width: 210px;
+            font-size: 2.25rem;
+            line-height: 2.25rem;
+        }
+
+        .p0 {
+            padding: 0;
+        }
+
+        .mitch_hedberg {
+            overflow: hidden;
+            width: 40%;
+            max-width: none;
+            flex-shrink: 0;
+        }
+
+        .mitch_hedberg video {
+            transform: translateX(-32%);
+            height: 100%;
+        }
+
+        .slide a {
+            text-decoration: none;
+            background-image: none;
+        }
+
+        .slide:first-of-type {
+            padding: 0;
+            display: flex;
+            flex-flow: row-reverse;
+        }
+
+        .shower {
+            --slide-ratio: calc(16 / 9);
+        }
+
+        .shower.list {
+            grid-template-rows: none;
+        }
+
+        section.slide:after {
+            content: none;
+        }
+
+        .mobot.gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: inherit;
+            height: inherit;
+            background-image: linear-gradient(90deg, #d1aad7, #c88bc4 27%, #7b8fdd 53%, #86bff2 84%, #b3dbff);
+            mix-blend-mode: hard-light;
+            opacity: 0.39;
+        }
+        .mobot.logo {
+            position: absolute;
+            left: 2.08%;
+            bottom: 3.3%;
+            max-width: 27.4%;
+        }
+        .mobot.link {
+            position: absolute;
+            left: 11.8%;
+            bottom: 2.5%;
+            color: var(--color-medium);
+        }
+
+        .slide.attribution {
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+        }
+
+        aside {
+            padding: calc(var(--slide-right-side) / 2);
+            max-width: calc(var(--slide-right-side) * 5);
+            background: var(--color-primary);
+        }
+
+        .slide:first-of-type aside {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50%;
+        }
+
+        .slide:first-of-type aside img {
+            width: 400px;
+        }
+
+        .slide:first-of-type aside figcaption {
+            position: absolute;
+            margin-left: 43.75%;
+        }
+
+        .slide:first-of-type aside figcaption a {
+            font-size: 1.25rem;
+            color: var(--color-medium);
+        }
+
+        .slide:first-of-type aside figcaption a em {
+            color: var(--color-secondary);
+            font-style: normal;
+        }
+
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 6rem;
+            text-transform: uppercase;
+        }
+
+        header h1, header h2 {
+            margin: 0;
+        }
+
+        header h1 {
+            color: var(--color-primary);
+            font-weight: 600;
+            font-size: 3rem;
+            line-height: 3rem;
+        }
+
+        header h2 {
+            font-weight: 500;
+            font-size: 1.75rem;
+            line-height: 1.75rem;
+        }
+
+        .slide aside a {
+            color: var(--color-white);
+        }
+
+        .remark:not(.p0) {
+            padding: 79px var(--slide-right-side) 0 var(--slide-left-side);
+        }
+
+        .remark.p1 {
+            padding: 2.5rem;
+        }
+
+        .remark img {
+            max-width: 100%;
+        }
+
+        header figcaption {
+            margin: 2rem;
+        }
+
+        figure figcaption {
+            align-self: center;
+        }
+
+        aside figure figcaption {
+            margin: 1rem 0 2rem;
+            text-align: center;
+        }
+
+        figure img:not(.cover) {
+            max-width: 100%;
+            border-radius: 50%;
+            background-color: var(--color-white);
+            box-shadow: 0 0 0px 0.25rem var(--color-white);
+        }
+
+        .code-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .code-container pre {
+            display: inline-block;
+        }
+
+        blockquote {
+            color: var(--color-medium);
+            font-size: 1.7rem;
+            line-height: 1.7rem;
+        }
+
+        blockquote strong {
+            color: var(--color-primary);
+            font-size: 110%;
+        }
+
+        blockquote em {
+            color: var(--color-black);
+        }
+
+        figcaption.popout {
+            position: absolute;
+            bottom: 2rem;
+            right: 0;
+            display: inline-block;
+            color: rgba(255, 255, 255, 0.8);
+            background: var(--color-primary);
+            padding: 2rem 3rem 2rem 2rem;
+        }
+
+        figcaption.popout span.author {
+            display: block;
+        }
+
+        figcaption.popout > a {
+            color: var(--color-white);
+            font-weight: 500;
+        }
+
+        .slide.columns-3 {
+            padding: 0;
+        }
+
+        .slide.columns-3 ul {
+            display: flex;
+            flex-direction: row;
+            list-style: none;
+            height: 100%;
+            padding: 1rem;
+        }
+
+        .slide.columns-3 ul li {
+            flex-grow: 1;
+            width: 100%;
+            padding: 200px 1.5rem 0;
+        }
+
+        .slide.columns-3 ul li::before {
+            content: none;
+        }
+
+        .slide.columns-3 ul li a {
+            font-size: 2rem;
+            line-height: 2rem;
+        }
+    </style>
+</head>
+<body class="shower list">
+
+    <section class="slide">
+        <header>
+            <h1>Sorry for the Convenience</h1>
+            <h2>The Importance of Progressive Enhancement</h2>
+        </header>
+        <aside>
+            <figure>
+                <img src="media/avatar.png" alt="Brendon Walsh">
+                <figcaption>
+                    <a href="http://brendonwalsh.me">Brendon Walsh <em>@niamu</em></a>
+                </figcaption>
+            </figure>
+        </aside>
+    </section>
+
+    <section class="slide">
+        <svg class="mobot logo" viewBox="0 0 1458 407" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+            <title>Mobot</title>
+            <defs>
+                <clipPath id="clip0_7129_33294">
+                    <rect fill="white" height="406"  transform="translate(0.714355 0.5)" width="1457"/>
+                </clipPath>
+            </defs>
+            <g clip-path="url(#clip0_7129_33294)" >
+                <path d="m283.13,192.49c4.63,-12.37 9.17,-24.58 13.8,-36.93c6.8,0.98 12.85,-0.55 17.94,-5.28c3.71,-3.43 5.8,-7.68 6.43,-12.64c1.17,-9.17 -4.53,-18.28 -13.38,-21.5c-9.13,-3.33 -19.03,0.02 -24.35,8.35c-4.75,7.45 -4.69,18.51 4.1,26.59c-4.1,6.93 -8.24,13.88 -12.37,20.81c-2.59,4.37 -5.23,8.71 -7.76,13.12c-0.68,1.18 -1.32,1.47 -2.68,1.11c-8.5,-2.28 -17.17,-3.68 -25.94,-4.33c-0.51,-0.04 -0.99,-0.17 -1.57,-0.25c-0.4,-5.15 -0.82,-10.26 -1.22,-15.39c-0.86,-11.14 -1.74,-22.27 -2.59,-33.41c-0.13,-1.57 -0.69,-3.41 -0.07,-4.63c0.55,-1.02 2.52,-1.28 3.85,-1.86c8.76,-3.83 14.56,-13.65 13.38,-22.65c-1.36,-10.62 -8.64,-18.47 -18.69,-20.16c-13.8,-2.35 -26.28,8.01 -26.51,22c-0.16,9.48 6.14,18.3 15.39,21.54c0.59,0.21 1.17,0.4 1.91,0.63c-0.15,2.16 -0.3,4.27 -0.46,6.38c-1.09,14.01 -2.18,28.04 -3.29,42.04c0,0.13 -0.02,0.25 -0.02,0.38c-0.15,1.61 0.27,3.73 -0.61,4.73c-0.82,0.94 -2.97,0.73 -4.54,1.01c-8.02,1.36 -16.04,2.72 -24.37,4.12c-6.8,-11.45 -13.88,-23.36 -20.96,-35.26c8.82,-8.18 8.9,-19.61 3.44,-27.36c-5.72,-8.12 -16.12,-10.97 -25.27,-6.93c-8.86,3.92 -13.74,13.84 -11.37,23.62c1.28,5.27 4.38,9.42 8.98,12.33c4.52,2.87 9.51,3.79 14.99,2.8c4.63,12.38 9.21,24.69 13.84,37.08c-3.23,1.57 -6.34,2.99 -9.38,4.59c-14.09,7.39 -26.63,16.79 -37.29,28.66c-13.44,14.99 -23.86,31.75 -30.23,50.95c-3.56,10.76 -5.86,21.78 -6.74,33.08c-1.55,20.12 0.99,39.67 7.96,58.64c0.92,2.47 1.86,4.98 0.12,7.56c-2.09,3.12 -5.71,3.73 -8.62,1.34c-8.21,-6.7 -15.31,-14.51 -22.11,-22.59c-20.54,-24.35 -34.42,-52.13 -42.35,-82.9c-3.27,-12.67 -5.13,-25.57 -5.84,-38.63c-0.88,-16.16 -0.15,-32.24 2.61,-48.21c7.23,-41.46 25.36,-77.47 54.14,-108.14c17.15,-18.27 36.93,-33.01 59.42,-44.11c16.45,-8.14 33.68,-14.02 51.64,-17.71c17.07,-3.47 34.36,-4.65 51.74,-3.77c45.15,2.29 85.52,17.53 120.84,45.73c29.53,23.59 51.1,53.17 64.85,88.39c5.97,15.3 9.86,31.17 11.96,47.48c1.52,11.97 2.24,24.01 1.76,36.07c-1.12,28.37 -7.67,55.41 -19.89,81.06c-9.15,19.24 -20.62,36.91 -35.36,52.36c-4.74,4.94 -9.68,9.67 -14.59,14.45c-2.31,2.23 -5.05,2.53 -7.56,1.02c-2.45,-1.47 -3.33,-3.79 -2.41,-7.05c1.69,-6.03 3.71,-11.98 5.25,-18.05c3.08,-12.06 4.15,-24.35 3.84,-36.76c-0.49,-18.64 -4.72,-36.39 -12.73,-53.2c-9.24,-19.32 -21.59,-36.32 -38.11,-50.14c-9.35,-7.83 -19.74,-14.01 -30.79,-19.11c-0.59,-0.32 -1.26,-0.65 -2.16,-1.07zm-209.41,-66.62c0.16,2.01 0.25,3.83 0.46,5.63c0.6,5.28 2.13,10.28 4.56,15.01c0.65,1.28 1.74,2.01 3.22,1.78c1.47,-0.21 2.5,-1.17 2.6,-2.57c0.08,-0.99 -0.36,-2.07 -0.77,-2.99c-2.08,-4.63 -3.42,-9.43 -3.56,-14.51c-0.42,-16.4 6.44,-28.77 20.64,-37.04c2.76,-1.61 3.58,-3.05 2.49,-4.96c-1.09,-1.88 -2.78,-2.09 -5.57,-0.5c-15.53,8.94 -23.19,22.61 -24.07,40.15zm302.14,25.79c0,1.45 0.16,2.91 -0.03,4.34c-1.92,13.86 -8.87,24.3 -21.31,30.94c-1.99,1.07 -2.68,2.85 -1.78,4.5c0.86,1.59 2.68,2.05 4.59,1.09c4.69,-2.37 8.87,-5.44 12.43,-9.32c9.61,-10.44 13.65,-22.75 12.27,-36.84c-0.52,-5.28 -2.11,-10.3 -4.5,-15.05c-1.07,-2.12 -3.66,-2.54 -5.19,-0.91c-1.15,1.24 -0.99,2.54 -0.29,4c2.61,5.43 4.08,11.16 3.81,17.25zm-288.1,-25.33c0.02,5.99 1.36,11.83 3.42,16c1.06,2.19 2.76,3.03 4.5,2.22c1.76,-0.82 2.01,-2.54 1.25,-4.84c-1.04,-3.12 -2.32,-6.32 -2.55,-9.55c-0.92,-12.49 4.27,-21.87 15.22,-28.01c1.9,-1.07 2.55,-2.74 1.67,-4.35c-0.92,-1.72 -2.7,-2.18 -4.69,-1.11c-12.22,6.66 -18.1,17.21 -18.82,29.64zm274.26,23.83c0.02,10.74 -5.45,19.82 -15.18,25.27c-2.12,1.19 -2.81,2.72 -1.95,4.41c0.96,1.89 2.58,2.29 4.8,1.17c16.35,-8.14 23.44,-29.47 15.24,-45.8c-1.03,-2.07 -2.68,-2.81 -4.4,-1.99c-1.78,0.84 -2.26,2.47 -1.28,4.58c1.78,3.92 2.81,8.02 2.77,12.36zm-259.98,-21.06c-0.02,3.6 0.73,7.03 2.43,10.15c0.52,0.94 2.01,1.84 3.08,1.88c0.88,0.05 2.15,-1.04 2.61,-1.96c0.38,-0.76 0.05,-2.06 -0.35,-2.98c-3.5,-8.31 -0.55,-17.29 7.24,-21.79c2.24,-1.3 2.93,-2.85 2.01,-4.54c-1,-1.85 -2.91,-2.2 -5.17,-0.86c-7.62,4.52 -11.43,11.32 -11.85,20.1zm252.27,18.11c-0.56,-1.99 -1.46,-5.16 -2.36,-8.34c-0.05,-0.19 -0.15,-0.35 -0.23,-0.52c-0.99,-1.76 -2.68,-2.39 -4.25,-1.59c-1.62,0.81 -2.18,2.51 -1.36,4.33c2.32,5.19 2.3,10.32 -0.32,15.39c-1.59,3.1 -4.08,5.32 -7.08,7.1c-0.92,0.54 -1.82,1.9 -1.86,2.93c-0.02,0.9 0.97,2.24 1.84,2.68c0.82,0.4 2.26,0.16 3.12,-0.32c8.06,-4.37 11.83,-11.41 12.5,-21.66z" fill="white" />
+                <path d="m307.77,320.07c0.02,16.04 -12.33,28.85 -27.82,28.85c-17.08,0 -29.98,-12.31 -29.98,-28.6c0,-16.12 13.08,-29.25 29.18,-29.29c15.94,0 28.62,12.88 28.62,29.04z" fill="white" />
+                <path d="m177.76,347.49c-16.47,-0.02 -29.16,-12.58 -29.14,-28.82c0.02,-15.83 13.32,-28.87 29.42,-28.83c15.97,0.02 28.59,12.87 28.49,29.12c-0.08,16.79 -13.63,28.93 -28.77,28.53z" fill="white" />
+                <path d="m638.59,308.68c-12.28,0 -24.01,0 -36.39,0c0,-2.04 0,-3.91 0,-5.84c0,-40.95 -0.06,-81.97 0.05,-122.92c0,-8.09 -2.58,-14.65 -9.85,-18.61c-12.5,-6.82 -27.19,2.26 -27.19,16.68c0,41.45 0,82.96 0,124.41c0,1.98 0,3.91 0,6.22c-12.17,0 -23.95,0 -36.06,0c-0.22,-0.88 -0.61,-1.82 -0.61,-2.7c0.06,-43.76 -0.33,-87.58 0.39,-131.34c0.33,-21.69 11.67,-37.65 31.27,-46.79c19.48,-9.09 38.47,-6.99 56.2,5.45c1.32,0.93 2.64,1.98 4.24,3.19c7.82,-6.55 16.57,-11.12 26.7,-13.1c33.58,-6.5 64.9,19.21 64.9,53.45c0,41.62 0,83.29 0,124.9c0,2.15 0,4.24 0,6.83c-12.16,0 -23.89,0 -36.33,0c0,-2.09 0,-4.02 0,-5.94c0,-41.29 0.05,-82.63 0,-123.92c0,-11.89 -7.93,-19.65 -19.54,-19.43c-9.31,0.16 -16.96,7.93 -17.62,18.06c-0.22,3.63 -0.05,7.26 -0.11,10.9c0,37.98 0,76.02 0,114c-0.05,1.98 -0.05,3.96 -0.05,6.5z" fill="white" />
+                <path d="m950.66,125.53c32.91,0 65.83,-1.38 98.53,0.39c28.18,1.54 49.16,26.91 48.39,54.93c-0.33,13.44 -5.67,24.94 -16.13,33.75c-0.83,0.71 -1.66,1.54 -2.65,2.48c13,9.63 18.89,22.57 18.78,38.14c-0.11,29.01 -24.89,53.62 -53.9,53.73c-30.88,0.11 -61.76,0 -93.08,0c0.06,-61.38 0.06,-122.48 0.06,-183.42zm65.99,73.43c7.77,0 15.53,0 23.29,0c0.17,0 0.33,0 0.5,0c12.11,-0.11 20.58,-7.76 20.69,-18.66c0.11,-10.46 -8.36,-18.66 -20.09,-18.77c-16.51,-0.22 -33.03,0 -49.54,-0.11c-3.52,0 -4.57,1.32 -4.51,4.68c0.16,9.41 0.16,18.83 -0.06,28.24c-0.11,3.8 1.38,4.84 4.96,4.73c8.25,-0.27 16.51,-0.16 24.76,-0.11zm-29.28,73.44c19.49,0 38.48,0.39 57.41,-0.17c9.47,-0.27 16.85,-9.79 16.35,-19.1c-0.49,-9.58 -8.42,-17.39 -18,-17.61c-7.26,-0.17 -14.53,-0.06 -21.74,-0.06c-11.18,0 -22.4,0 -33.96,0c-0.06,12.39 -0.06,24.33 -0.06,36.94z" fill="white" />
+                <path d="m831.2,122.78c-52.74,-0.06 -94.79,42.05 -95.56,94.07c-0.78,51.42 42.05,96.56 95.12,96.07c52.63,0 95.34,-42.45 95.45,-94.85c0.06,-52.52 -42.49,-95.24 -95.01,-95.29zm-0.17,153.69c-32.25,0.06 -58.79,-26.26 -58.9,-58.29c-0.6,-32.76 26.81,-57.75 56.04,-59.07c32.1,-1.43 61.27,24.11 61.49,58.74c0.22,31.87 -26.64,58.57 -58.63,58.62z" fill="white" />
+                <path d="m1211.05,126.84c-53.51,-0.06 -96,42.05 -96,95.17c0,52.52 42.55,94.96 95.17,94.96c52.14,0.06 94.47,-42.05 95.18,-93.47c0.83,-53.23 -42.11,-96.61 -94.35,-96.66zm0.22,153.69c-32.2,0.11 -59.07,-25.76 -59.84,-56.48c-0.82,-34.24 26.65,-59.45 55.88,-60.83c35.72,-1.65 62.75,28.35 61.54,58.85c0.17,31.54 -26.2,58.35 -57.58,58.46z" fill="white" />
+                <path d="m1457.48,125.14c0,12.06 0,23.73 0,36.12c-18.22,0 -36.27,0 -54.88,0c0,49.48 0,98.26 0,147.36c-12.39,0 -24.17,0 -36.61,0c-0.11,-2.14 -0.33,-4.4 -0.33,-6.6c0,-44.59 0,-89.18 0,-133.83c0,-6.77 -0.05,-6.77 -6.77,-6.77c-14.2,0 -28.4,0 -42.66,0c-1.76,0 -3.52,-0.16 -5.56,-0.22c0,-12.16 0,-24 0,-36.06c48.88,0 97.54,0 146.81,0z" fill="white" />
+            </g>
+        </svg>
+
+        <div class="mobot gradient"></div>
+        <video class="cover" poster="media/mobot.jpg" playsinline muted>
+            <source src="media/mobot.mp4" type="video/mp4" />
+            <p>A video of a Mobot robot typing in a chat application on two phones sending messages between them.</p>
+        </video>
+
+        <a class="mobot link" href="https://mobot.io">mobot.io</a>
+    </section>
+
+    <section class="slide attribution">
+        <aside>
+            <figure>
+                <a href="https://www.flickr.com/photos/zeldman/5526964518/in/photosof-schampeo/" title="Photo by Jeffrey Zeldman of Steven Champeon"><img src="media/steven_champeon.png" alt="Steven Champeon"></a>
+                <figcaption>
+                    <a href="https://hesketh.com">Steven Champeon</a>
+                </figcaption>
+            </figure>
+
+            <figure>
+                <img src="media/nick_finck.png" alt="Nick Finck">
+                <figcaption>
+                    <a href="https://nickfinck.com">Nick Finck</a>
+                </figcaption>
+            </figure>
+        </aside>
+
+        <div class="remark p1">
+            <img src="media/sxsw_slide0.png" />
+        </div>
+    </section>
+
+    <section class="slide attribution">
+        <aside>
+            <figure>
+                <a href="https://www.flickr.com/photos/zeldman/5526964518/in/photosof-schampeo/" title="Photo by Jeffrey Zeldman of Steven Champeon"><img src="media/steven_champeon.png" alt="Steven Champeon"></a>
+                <figcaption>
+                    <a href="https://hesketh.com">Steven Champeon</a>
+                </figcaption>
+            </figure>
+
+            <figure>
+                <img src="media/nick_finck.png" alt="Nick Finck">
+                <figcaption>
+                    <a href="https://nickfinck.com">Nick Finck</a>
+                </figcaption>
+            </figure>
+        </aside>
+
+        <div class="remark p1">
+            <img src="media/sxsw_slide7.png" />
+        </div>
+    </section>
+
+    <section class="slide attribution">
+        <aside>
+            <figure>
+                <a href="https://www.flickr.com/photos/zeldman/5526964518/in/photosof-schampeo/" title="Photo by Jeffrey Zeldman of Steven Champeon"><img src="media/steven_champeon.png" alt="Steven Champeon"></a>
+                <figcaption>
+                    <a href="https://hesketh.com">Steven Champeon</a>
+                </figcaption>
+            </figure>
+
+            <figure>
+                <img src="media/nick_finck.png" alt="Nick Finck">
+                <figcaption>
+                    <a href="https://nickfinck.com">Nick Finck</a>
+                </figcaption>
+            </figure>
+        </aside>
+
+        <div class="remark p1">
+            <img src="media/sxsw_slide9.png" />
+        </div>
+    </section>
+
+    <section class="slide attribution">
+        <aside>
+            <figure>
+                <a href="https://www.flickr.com/photos/zeldman/5526964518/in/photosof-schampeo/" title="Photo by Jeffrey Zeldman of Steven Champeon"><img src="media/steven_champeon.png" alt="Steven Champeon"></a>
+                <figcaption>
+                    <a href="https://hesketh.com">Steven Champeon</a>
+                </figcaption>
+            </figure>
+
+            <figure>
+                <img src="media/nick_finck.png" alt="Nick Finck">
+                <figcaption>
+                    <a href="https://nickfinck.com">Nick Finck</a>
+                </figcaption>
+            </figure>
+        </aside>
+
+        <div class="remark p1">
+            <img src="media/sxsw_slide12.png" />
+        </div>
+    </section>
+
+    <section class="slide attribution">
+        <aside>
+            <figure>
+                <a href="https://www.flickr.com/photos/zeldman/5526964518/in/photosof-schampeo/" title="Photo by Jeffrey Zeldman of Steven Champeon"><img src="media/steven_champeon.png" alt="Steven Champeon"></a>
+                <figcaption>
+                    <a href="https://hesketh.com">Steven Champeon</a>
+                </figcaption>
+            </figure>
+
+            <figure>
+                <img src="media/nick_finck.png" alt="Nick Finck">
+                <figcaption>
+                    <a href="https://nickfinck.com">Nick Finck</a>
+                </figcaption>
+            </figure>
+        </aside>
+
+        <div class="remark p1">
+            <img src="media/sxsw_slide13.png" />
+        </div>
+    </section>
+
+    <section class="slide attribution">
+        <aside>
+            <figure>
+                <a href="https://www.flickr.com/photos/zeldman/5526964518/in/photosof-schampeo/" title="Photo by Jeffrey Zeldman of Steven Champeon"><img src="media/steven_champeon.png" alt="Steven Champeon"></a>
+                <figcaption>
+                    <a href="https://hesketh.com">Steven Champeon</a>
+                </figcaption>
+            </figure>
+
+            <figure>
+                <img src="media/nick_finck.png" alt="Nick Finck">
+                <figcaption>
+                    <a href="https://nickfinck.com">Nick Finck</a>
+                </figcaption>
+            </figure>
+        </aside>
+
+        <div class="remark p1">
+            <img src="media/sxsw_slide14.png" />
+        </div>
+    </section>
+
+    <section class="slide attribution">
+        <aside class="p0 mitch_hedberg">
+            <video poster="media/mitch_hedberg.jpg" loop playsinline muted>
+                <source src="media/mitch_hedberg.mp4" type="video/mp4" />
+                <img src="media/mitch_hedberg.jpg" alt="Mitch Hedberg standing in front of a microphone saying 'Sorry for the Convenience'." />
+            </video>
+        </aside>
+        <div class="remark">
+            <figure>
+                <blockquote>
+                    <p>An escalator can never break, it can only become stairs. There would never be an "<em>Escalator Temporarily Out of Order</em>" sign, only an "<em>Escalator Temporarily Stairs. <strong>Sorry For The Convenience</strong></em>."</p>
+                    <p>We apologize for the fact that you can still get up there.</p>
+                </blockquote>
+                <figcaption class="popout">
+                    <span class="author">Mitch Hedberg</span> <a href="https://youtu.be/PBWpXSiP5xY?t=1907">Strategic Grill Locations</a> (1999)
+                </figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3 class="shout"><span style="font-size: 60%">Progressive Enhancement</span> Benefits</h3>
+    </section>
+
+    <section class="slide">
+        <h3 class="shout">Performance</h3>
+        <h4>(getting there fast)</h4>
+    </section>
+
+    <section class="slide">
+        <figure>
+            <a href="https://www.youtube.com/watch?v=fWoI9DXmpdk">
+                <img class="cover" src="media/lcp.png" alt="Graph of a website's Largest Contentful Paint time breakdown from Google I/O 2022" />
+            </a>
+            <figcaption class="popout" style="bottom: 3.5rem">
+                <span class="author">Google Chrome Developers</span> <a href="https://www.youtube.com/watch?v=fWoI9DXmpdk">A deep dive into optimizing LCP</a> (2022)
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="slide">
+        <h3 class="shout">Resilience</h3>
+        <h4>(getting there when things go wrong)</h4>
+    </section>
+
+    <section class="slide">
+        <figure>
+            <a href="https://youtu.be/3aw6U2uVl0I?t=1525">
+                <video class="cover" poster="media/resilience.jpg" loop playsinline muted>
+                    <source src="media/resilience.mp4" type="video/mp4" />
+                </video>
+            </a>
+            <figcaption class="popout">
+                <span class="author">Jeremy Keith</span> <a href="https://youtu.be/3aw6U2uVl0I?t=1525">Resilience</a> (2015)
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="slide">
+        <figure>
+            <a href="https://youtu.be/oyLBGkS5ICk?t=1332">
+                <img class="cover" src="media/spec-ulation_growing_software.png" alt="Rich Hickey speaking at Clojure/conj 2016 during his 'Spec-ulation' Keynote" />
+            </a>
+            <figcaption class="popout">
+                <span class="author">Rich Hickey</span> <a href="https://www.youtube.com/watch?v=fWoI9DXmpdk">Spec-ulation</a> (2016)
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="slide columns-3">
+        <ul>
+            <li>
+                <figure>
+                    <a href="https://kryogenix.org/code/browser/everyonehasjs.html">Everyone Has JavaScript, Right?</a>
+                    <figcaption>Stuart Langridge</figcaption>
+                </figure>
+            </li>
+            <li>
+                <figure>
+                    <a href="https://adamsilver.io/articles/javascript-isnt-always-available-and-its-not-the-users-fault/">JavaScript isn’t always available and it’s not the user’s fault</a>
+                    <figcaption>Adam Silver</figcaption>
+                </figure>
+            </li>
+            <li>
+                <figure>
+                    <a href="https://gds.blog.gov.uk/2013/10/21/how-many-people-are-missing-out-on-javascript-enhancement/">How many people are missing out on JavaScript enhancement?</a>
+                    <figcaption>Government Digital Service (UK)</figcaption>
+                </figure>
+            </li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h3 class="shout">Accessibility</h3>
+        <h4>(getting there with dignity)</h4>
+    </section>
+
+    <section class="slide">
+        <h3>cljs</h3>
+        <div class="code-container">
+            <pre>
+                <code>[:span {:onClick (fn [event]</code>
+                <code>                   ;; fancy page transition</code>
+                <code>                   (transition-to "/login"))}</code>
+                <code> "Login"]</code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>clj</h3>
+        <div class="code-container">
+            <pre>
+                <code>[:a {:href "/login"}</code>
+                <code> "Login"]</code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h3>cljc</h3>
+        <div class="code-container">
+            <pre>
+                <code>[:a (merge {:href "/login"}</code>
+                <code>           #?(:cljs {:onClick (fn [event]</code>
+                <code>                                (.preventDefault event)</code>
+                <code>                                ;; fancy page transition</code>
+                <code>                                (transition-to "/login"))})</code>
+                <code> "Login"]</code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="slide">
+        <figure>
+            <a href="https://youtu.be/oyLBGkS5ICk?t=3038">
+                <img class="cover" src="media/spec-ulation_social_thing.png" alt="Rich Hickey speaking at Clojure/conj 2016 during his 'Spec-ulation' Keynote" />
+            </a>
+            <figcaption class="popout">
+                <span class="author">Rich Hickey</span> <a href="https://www.youtube.com/watch?v=fWoI9DXmpdk">Spec-ulation</a> (2016)
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="slide">
+        <h3 class="shout invert">
+            <span style="display: block; line-height: 7rem; margin: 0 0 -5rem; font-size: 12.5rem; font-weight: 800; color: var(--color-primary);">Sorry</span><br> <span style="color: var(--color-light);">for the</span> <span style="color: var(--color-secondary)">Convenience</span>
+        </h3>
+        <a href="https://niamu.github.io/sorry-for-the-convenience" style="position: absolute; bottom: 4rem; left: 0; text-align: center; width: 100%; color: var(--color-medium)">niamu.github.io/sorry-for-the-convenience</a>
+    </section>
+
+    <script src="node_modules/@shower/core/dist/shower.js"></script>
+</body>
+</html>

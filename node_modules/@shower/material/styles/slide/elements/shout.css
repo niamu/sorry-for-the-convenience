@@ -1,0 +1,62 @@
+/* Shout */
+
+.slide .shout {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    color: white;
+    line-height: 1.1;
+    font-size: 6rem;
+    transform: translateY(-50%);
+}
+
+.slide .shout.invert {
+    color: var(--color-primary);
+    text-transform: uppercase;
+}
+
+.slide .shout.invert::after {
+    content: none;
+}
+
+/* Back */
+
+.slide .shout::after {
+    position: absolute;
+    top: -500%;
+    right: -500%;
+    bottom: -500%;
+    left: -500%;
+    z-index: -1;
+    background-color: var(--color-primary);
+    background-image: var(--diagonal);
+    background-repeat: no-repeat;
+    content: '';
+}
+
+/* Link */
+
+.slide .shout a {
+    background-image:
+        linear-gradient(
+            to top,
+            currentColor 0.1em,
+            transparent 0.1em
+        );
+    background-position: bottom 0.1em left 0;
+    background-repeat: repeat-x;
+    color: inherit;
+}
+
+/* Full */
+
+.shower.full .slide .shout::after {
+    background-position: var(--slide-width) 0;
+    transition: background-position 0.4s ease-out;
+}
+
+.shower.full .slide.active .shout::after {
+    background-position: 0 0;
+}
