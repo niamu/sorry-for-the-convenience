@@ -1,0 +1,45 @@
+/* Shower */
+
+@import 'shower-list.css' screen;
+@import 'shower-full.css' screen;
+@import 'shower-pointless.css' screen;
+@import 'shower-grid.css' screen;
+@import 'shower-print.css' print;
+
+.shower {
+    --slide-gap: 96px;
+    --slide-ratio: calc(16 / 9);
+    --slide-width: 1024px;
+    --slide-height: calc(
+        var(--slide-width) / var(--slide-ratio)
+    );
+    --slide-left-side: 96px;
+    --slide-right-side: 112px;
+
+    --color-primary: #FE6B12;
+    --color-secondary: #FF8135;
+    --color-tertiary: #FE9A58;
+    --color-black: #4A4A4A;
+    --color-white: #FFFFFF;
+    --color-dark: #6A6A6A;
+    --color-medium: #8A8A8A;
+    --color-light: #B8B8B8;
+    --color-back: #eeeeee;
+    --color-yellow: #fff59d;
+
+    --progress-size: 8px;
+
+    --diagonal: linear-gradient(
+        135deg, var(--color-secondary) 50%,
+        var(--color-primary) 50%
+    );
+
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+
+    margin: 0;
+    color: var(--color-black);
+    counter-reset: slide;
+    font: 20px/1.5rem 'Avenir Next', sans-serif;
+}
