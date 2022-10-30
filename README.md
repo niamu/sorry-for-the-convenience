@@ -2,6 +2,7 @@
 
 ## The Importance of Progressive Enhancement
 
+[![media/metatag.png](media/metatag.png)](https://niamu.github.io/sorry-for-the-convenience)
 
 A talk I gave at [Dutch Clojure Days](https://clojuredays.org) 2022.
 
